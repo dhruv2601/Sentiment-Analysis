@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
+    xmlns:gauge="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.dhruv.sentimentanalysis.MainActivity">
+
+    <EditText
+        android:id="@+id/edt_input"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="50dp"
+        android:textSize="17dp"
+        android:fontFamily="sans-serif"
+        android:hint="Enter Text To Analyze"
+        android:inputType="textAutoCorrect|textMultiLine" />
+
+
+    <TextView
+        android:id="@+id/txtSenti"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="240dp"
+        android:text="      Sentiment :"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/sentiment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="240dp"
+        android:layout_toRightOf="@id/txtSenti"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtSenti"
+        android:layout_marginTop="20dp"
+        android:text="      Score :"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/dispScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sentiment"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@id/txtSenti"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/linear_layout1"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="350dp">
+
+        <com.cardiomood.android.controls.gauge.SpeedometerGauge
+            android:id="@+id/speedometer"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="60dp"
+            android:padding="8dp" />
+    </LinearLayout>
+
+    <mehdi.sakout.fancybuttons.FancyButton
+        android:id="@+id/btn_getData"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/edt_input"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        fancy:fb_borderColor="#FFFFFF"
+        fancy:fb_borderWidth="1dp"
+        fancy:fb_defaultColor="#7ab800"
+        fancy:fb_radius="30dp"
+        fancy:fb_text="        A n a l y z e      "
+        fancy:fb_textColor="#FFFFFF" />
+
+</RelativeLayout>
