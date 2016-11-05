@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:typer="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_concept_text"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.dhruv.sentimentanalysis.ConceptText">
+
+    <cn.refactor.typer.TyperEditText
+        android:layout_width="match_parent"
+        android:hint="Type Long Text To Analyze"
+        android:layout_height="130dp"
+        typer:characterWriteInterval="200"
+        typer:punctuationWriteInterval="600"
+        typer:touchable="true"
+        android:layout_marginTop="32dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/edt_input" />
+
+    <!--<EditText-->
+        <!--android:id="@+id/edt_input"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="60dp"-->
+        <!--android:layout_marginTop="62dp"-->
+        <!--android:fontFamily="sans-serif"-->
+        <!--android:hint="Enter Long Text To Analyze"-->
+        <!--android:inputType="textAutoCorrect|textMultiLine"-->
+        <!--android:textSize="17dp"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true" />-->
+
+    <TextView
+        android:textSize="30dp"
+        android:fontFamily="monospace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/res1"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/res2" />
+
+    <TextView
+        android:textSize="30dp"
+        android:fontFamily="monospace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/res2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:id="@+id/res3" />
+
+    <TextView
+        android:textSize="30dp"
+        android:fontFamily="monospace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/res3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:id="@+id/res4" />
+
+    <mehdi.sakout.fancybuttons.FancyButton
+        android:id="@+id/btn_getConcept"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        fancy:fb_borderColor="#FFFFFF"
+        fancy:fb_borderWidth="1dp"
+        fancy:fb_defaultColor="#7ab800"
+        fancy:fb_radius="30dp"
+        fancy:fb_text="   Get Concept For Text   "
+        fancy:fb_textColor="#FFFFFF"
+        android:layout_below="@+id/edt_input"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="65dp"
+        android:layout_marginEnd="65dp" />
+
+    <TextView
+        android:textSize="30dp"
+        android:fontFamily="monospace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="29dp"
+        android:id="@+id/res1"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="    Discussed In The Text :"
+        android:layout_width="wrap_content"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>

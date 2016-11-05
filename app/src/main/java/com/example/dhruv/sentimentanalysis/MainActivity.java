@@ -1,8 +1,11 @@
 package com.example.dhruv.sentimentanalysis;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.hardware.input.InputManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cardiomood.android.controls.gauge.SpeedometerGauge;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,12 +37,15 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = "MainAct";
     public String jsonStr;
     public String inputText = "";
-    public double score=0;
+    public double score = 0;
     private SpeedometerGauge speedometer;
     public LinearLayout rl;
     public TextView sentiment;
     public TextView dispScore;
     public RelativeLayout mainActivity;
+    public FancyButton details;
+    public AVLoadingIndicatorView avl;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,9 +57,15 @@ public class MainActivity extends AppCompatActivity {
         sentiment = (TextView) findViewById(R.id.sentiment);
         dispScore = (TextView) findViewById(R.id.dispScore);
         mainActivity = (RelativeLayout) findViewById(R.id.activity_main);
-
+//        details = (FancyButton) findViewById(R.id.btn_getMoreInfo);
+        avl = (AVLoadingIndicatorView) findViewById(R.id.avlIndicator);
+        ConnectivityManager cm = (ConnectivityManager) MainActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo state = cm.getActiveNetworkInfo();
+        final boolean isConnected = state != null && state.isConnectedOrConnecting();
+        if (isConnected == false) {
+            Toast.makeText(this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+        }
         final EditText edtInput = (EditText) findViewById(R.id.edt_input);
-
         speedometer = (SpeedometerGauge) findViewById(R.id.speedometer);
 //        speedometer.setBackgroundResource(R.drawable.images);              // change the color of the one changed
         speedometer.setLabelConverter(new SpeedometerGauge.LabelConverter() {
@@ -80,25 +93,40 @@ public class MainActivity extends AppCompatActivity {
 
 //        drawView = new DrawView(this);
 //        setContentView(drawView);
+
+//        details.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(MainActivity.this, Details.class);
+//                startActivity(i);
+//            }
+//        });
+
+
         btnGetData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String inputText1 = edtInput.getText().toString();
+                if (isConnected == false) {
+                    Toast.makeText(MainActivity.this, "No Internet Connection.", Toast.LENGTH_SHORT).show();
+                } else {
 
-                for (int i = 0; i < inputText1.length(); i++) {
-                    if (inputText1.charAt(i) == ' ') {
-                        inputText += '+';
-                    } else {
-                        inputText += inputText1.charAt(i);
+                    String inputText1 = edtInput.getText().toString();
+
+                    for (int i = 0; i < inputText1.length(); i++) {
+                        if (inputText1.charAt(i) == ' ') {
+                            inputText += '+';
+                        } else {
+                            inputText += inputText1.charAt(i);
+                        }
                     }
-                }
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(mainActivity.getWindowToken(), 0);
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(mainActivity.getWindowToken(), 0);
 
-                inputText += '+';
-                Log.d(TAG, "inputTxt" + inputText);
-                new getData().execute();
-                Log.d(TAG, "jsonStr " + jsonStr);
+                    inputText += '+';
+                    Log.d(TAG, "inputTxt" + inputText);
+                    new getData().execute();
+                    Log.d(TAG, "jsonStr " + jsonStr);
+                }
             }
         });
     }
@@ -108,11 +136,17 @@ public class MainActivity extends AppCompatActivity {
         String reqUrl;
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected void onPreExecute() {
+            avl.show();
+            super.onPreExecute();
+        }
 
+        @Override
+        protected Void doInBackground(Void... params) {
             Log.d(TAG, "inTEXT::: " + inputText);
             reqUrl = ("https://api.havenondemand.com/1/api/sync/analyzesentiment/v2?text=" + inputText + "&language=eng&apikey=56985acd-2182-4468-994c-3bfcec560b30");
             jsonStr = sh.makeServiceCall(reqUrl);
+            Log.d(TAG,"jsonStr:: "+jsonStr);
             inputText = "";
             try {
                 JSONObject jsonObject = new JSONObject(jsonStr);
@@ -134,35 +168,28 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            details.setVisibility(View.VISIBLE);
+            avl.hide();
+            score = score * 100;
 
-            score = score*100;
-
-            if(score>=0)
-            {
+            if (score >= 0) {
                 rl.setBackgroundResource(R.drawable.green);
-                if(score==0)
-                {
+                if (score == 0) {
                     sentiment.setText("Neutral");
-                }
-                else
-                {
+                } else {
                     sentiment.setText("Positive");
                 }
-                dispScore.setText(""+(int)score);
+                dispScore.setText("" + (int) score);
 //                speedometer.setBackgroundResource(R.drawable.images);
-            }
-
-            else
-            {
+            } else {
                 rl.setBackgroundResource(R.drawable.red);
                 sentiment.setText("Negative");
-                dispScore.setText(""+(int)score);
+                dispScore.setText("" + (int) score);
 //                speedometer.setBackgroundResource(R.drawable.redback);
             }
 
-            if(score<0)
-            {
-                score*=(-1);
+            if (score < 0) {
+                score *= (-1);
             }
             speedometer.setSpeed(score, 2000, 300);
         }
