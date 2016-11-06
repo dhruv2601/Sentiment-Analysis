@@ -86,7 +86,7 @@ public class ConceptText extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            reqUrl = ("https://api.havenondemand.com/1/api/sync/extractconcepts/v1?text=" + inputText + "&apikey=56985acd-2182-4468-994c-3bfcec560b30");
+            reqUrl = ("https://api.havenondemand.com/1/api/sync/extractconcepts/v1?text=" + inputText + "&apikey=YOURAPIKEYHERE");
             jsonStr = sh.makeServiceCall(reqUrl);
 
             Log.d(TAG, "jsonConcept" + jsonStr);
