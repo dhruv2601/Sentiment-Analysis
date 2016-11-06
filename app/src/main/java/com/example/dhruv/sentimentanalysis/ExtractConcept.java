@@ -26,7 +26,15 @@ public class ExtractConcept extends AppCompatActivity {
         btnTypeText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i =new Intent(ExtractConcept.this,ConceptText.class);
+                Intent i = new Intent(ExtractConcept.this, ConceptText.class);
+                startActivity(i);
+            }
+        });
+
+        btnURL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ExtractConcept.this, conceptURL.class);
                 startActivity(i);
             }
         });

@@ -8,9 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,9 +20,9 @@ import org.json.JSONObject;
 import cn.refactor.typer.TyperEditText;
 import mehdi.sakout.fancybuttons.FancyButton;
 
-public class ConceptText extends AppCompatActivity {
+public class conceptURL extends AppCompatActivity {
 
-    private static final String TAG = "ConceptText";
+    private static final String TAG = "conceptURL";
     public FancyButton btnGetConcept;
     public TyperEditText edtInput;
     public String inputText = "";
@@ -35,13 +33,11 @@ public class ConceptText extends AppCompatActivity {
     public TextView tv2;
     public TextView tv3;
     public TextView tv4;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        setContentView(R.layout.activity_concept_text);
+        setContentView(R.layout.activity_concept_url);
 
         btnGetConcept = (FancyButton) findViewById(R.id.btn_getConcept);
         edtInput = (TyperEditText) findViewById(R.id.edt_input);
@@ -51,7 +47,7 @@ public class ConceptText extends AppCompatActivity {
         tv3 = (TextView) findViewById(R.id.res3);
         tv4 = (TextView) findViewById(R.id.res4);
 
-        ConnectivityManager cm = (ConnectivityManager) ConceptText.this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager) conceptURL.this.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo state = cm.getActiveNetworkInfo();
         final boolean isConnected = state != null && state.isConnectedOrConnecting();
 
@@ -59,33 +55,25 @@ public class ConceptText extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (isConnected == false) {
-                    Toast.makeText(ConceptText.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(conceptURL.this, "No Internet Connection", Toast.LENGTH_SHORT).show();
                 } else {
-                    String inputText1 = edtInput.getText().toString();
-                    for (int i = 0; i < inputText1.length(); i++) {
-                        if (inputText1.charAt(i) == ' '||inputText1.charAt(i) == '\n'||inputText1.charAt(i) == ','||inputText1.charAt(i) == '.') {
-                            inputText += '+';
-                        } else {
-                            inputText += inputText1.charAt(i);
-                        }
-                    }
+                    inputText = edtInput.getText().toString();
                     Log.d(TAG,"inputText:: "+inputText);
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(conceptLayout.getWindowToken(), 0);
+//                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//                    imm.hideSoftInputFromWindow(conceptLayout.getWindowToken(), 0);
                     new getConcept().execute();
                 }
             }
         });
-
     }
-
     private class getConcept extends AsyncTask<Void, Void, Void> {
         HttpHandler sh = new HttpHandler();
         String reqUrl;
 
         @Override
         protected Void doInBackground(Void... params) {
-            reqUrl = ("https://api.havenondemand.com/1/api/sync/extractconcepts/v1?text=" + inputText + "&apikey=56985acd-2182-4468-994c-3bfcec560b30");
+            reqUrl = ("https://api.havenondemand.com/1/api/sync/extractconcepts/v1?url=" + inputText + "&apikey=56985acd-2182-4468-994c-3bfcec560b30");
+//            reqUrl = ("https://api.havenondemand.com/1/api/sync/extractconcepts/v1?url=https://en.wikipedia.org/wiki/United_Kingdom&apikey=56985acd-2182-4468-994c-3bfcec560b30");
             jsonStr = sh.makeServiceCall(reqUrl);
 
             Log.d(TAG, "jsonConcept" + jsonStr);

@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ExtractConcept" />
-        <activity android:name=".ConceptText"></activity>
+        <activity android:name=".ConceptText" />
+        <activity android:name=".conceptURL"></activity>
     </application>
 
 </manifest>
