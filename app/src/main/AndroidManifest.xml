@@ -21,7 +21,14 @@
         </activity>
         <activity android:name=".ExtractConcept" />
         <activity android:name=".ConceptText" />
-        <activity android:name=".conceptURL"></activity>
+        <activity android:name=".conceptURL" />
+        <activity
+            android:name=".ConceptStorage"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_concept_storage"
+            android:theme="@style/FullscreenTheme" />
+        <activity android:name=".DetectLang" />
+        <activity android:name=".LangURL"></activity>
     </application>
 
 </manifest>

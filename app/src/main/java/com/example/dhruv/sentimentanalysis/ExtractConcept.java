@@ -23,6 +23,14 @@ public class ExtractConcept extends AppCompatActivity {
         btnStorage = (FancyButton) findViewById(R.id.btn_typeFile);
         btnTypeText = (FancyButton) findViewById(R.id.btn_typeText);
 
+        btnStorage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ExtractConcept.this, ConceptStorage.class);
+                startActivity(i);
+            }
+        });
+
         btnTypeText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

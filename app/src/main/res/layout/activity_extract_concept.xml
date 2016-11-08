@@ -56,7 +56,7 @@
         android:paddingTop="10dp"
         fancy:fb_borderColor="#FFFFFF"
         fancy:fb_borderWidth="1dp"
-        fancy:fb_defaultColor="#3f51b5"
+        fancy:fb_defaultColor="#f4511e"
         fancy:fb_radius="30dp"
         fancy:fb_text="     Type Text    "
         fancy:fb_textColor="#FFFFFF" />

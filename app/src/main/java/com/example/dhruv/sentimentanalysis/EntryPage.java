@@ -16,6 +16,15 @@ public class EntryPage extends AppCompatActivity {
 
         FancyButton sentiment = (FancyButton) findViewById(R.id.btn_sentiment);
         FancyButton concept = (FancyButton) findViewById(R.id.btn_extractConcept);
+        FancyButton lang  = (FancyButton) findViewById(R.id.btn_detectLang);
+
+        lang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(EntryPage.this, DetectLang.class);
+                startActivity(i);
+            }
+        });
 
         sentiment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,6 +41,5 @@ public class EntryPage extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
     }
 }
